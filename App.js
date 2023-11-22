@@ -8,6 +8,8 @@ export default function App() {
   return (
     <View>
       <StatusBar style="auto"></StatusBar>
+      {/* <StartIndex></StartIndex> */}
+      {/* <Mypage></Mypage> */}
       <Alert></Alert>
     </View>
   );

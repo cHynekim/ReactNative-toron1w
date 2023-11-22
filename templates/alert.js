@@ -8,36 +8,17 @@ export default function Alert(){
         {type : 'notice', image : '../asset/img/notice.png'},
         {type : 'chat', image : '../asset/img/chat.png'}
     ]);
-    const [date, setDate] = useState(new Date); /*날짜 체크, getDate() new Date 만들어서 동일하면 오늘, 안같으면 getMonth, getDate해서 어제 표기 둘 다 아닐 경우 월일 출력*/
+    const [today, setToday] = useState(new Date); /*날짜 체크, getDate() new Date 만들어서 동일하면 오늘, 안같으면 getMonth, getDate해서 어제 표기 둘 다 아닐 경우 월일 출력*/
+
     // const [type, setType] = useState([]);
     // const [title, setTitle] = useState([]);
     // const [desc, setDesc] = useState([]);
 
-    let type = 'chat'; /*temporary*/
-    let path;
-    for(let i = 0; i<icon.length; i++){
-        if(type === icon[i].type){
-            path = icon[i].image;
-        }
-        else path = null;
-    }
-
-    let noticeDate = new Date(2023, 11, 16); /*temporary*/
-    let dateText;
-    if(noticeDate.getFullYear() === date.getFullYear()){
-        if(noticeDate.getMonth() === date.getMonth()){
-            if(noticeDate.getDay() === date.getDate()){
-                dateText = '오늘';
-            }
-            else if(noticeDate.getDay()+1 === date.getDate()){
-                dateText = '어제';
-            }
-        }
-    }
-    else {
-        dateText = `${noticeDate.getMonth()}월 ${noticeDate.getDate()}일`
-    }
-
+    const [alertLog, setAlertLog] = useState([
+        {id:0, type:'chat', title:'토론의 창', desc:'\'어쩌구저쩌구\'의 토론이 종료되었습니다.\n결과를 확인해보세요', date:new Date(2023, 10, 17)},
+        {id:1, type:'notice', title:'공지사항', desc:'토론섬 어플 이용 안내', date:new Date(2023, 10, 16)}
+    ])
+    
     return (
         <View style={styles.wrap}>
             <View style={styles.nav}>
@@ -53,8 +34,9 @@ export default function Alert(){
             </View>
             <View style={styles.main}>
                 <AlertMenu
-                    icon={path}
-                    date={dateText}
+                    data={alertLog}
+                    icon={icon}
+                    today={today}
                     onCheckedAlert={()=>{
                         setChecked(1);
                     }}
@@ -106,6 +88,6 @@ const styles = StyleSheet.create({
     main : {
         flex : 15,
         width : '80%',
-        backgroundColor : '#8afc20'
+        backgroundColor : '#fff'
     }
 });
